@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { SessionService } from './services/session.service';
 import { LoaderComponent } from './components/loader/component/loader.component';
-
+import { CommonService } from './services/common.service';
+import { LoaderService } from './components/loader/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -12,13 +12,22 @@ import { LoaderComponent } from './components/loader/component/loader.component'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+
+export class AppComponent implements OnInit, AfterViewInit {
   title = 'ice-fire-spa';
 
   constructor(
-    private sessionService: SessionService
+    private commonService: CommonService,
+    public loaderService: LoaderService
   ) { }
 
-  ngOnInit() { };
+  ngOnInit() {
+    //test
+    //this.loaderService.isLoading.next(true);
+  };
+
+  ngAfterViewInit(): void {
+    this.commonService.adjustSnackBarStyle();
+  }
 
 }

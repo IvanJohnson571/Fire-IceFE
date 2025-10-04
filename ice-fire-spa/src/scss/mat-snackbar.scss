@@ -1,0 +1,144 @@
+@import "../colors.scss";
+
+.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
+  background-color: transparent !important;
+}
+
+.snackbar-failure, .snackbar-success, .snackbar-warning {
+  color: #ffffff;
+  font-size: 12px;
+  border-radius: 6px;
+
+  span {
+    font-weight: normal;
+  }
+
+  .mat-mdc-snack-bar-action {
+    color: #ffffff !important;
+  }
+
+  &.snackbar-failure {
+    background-color: #DD6C6C !important;
+  }
+
+  &.snackbar-success {
+    background-color: #5cb85c;
+  }
+
+  &.snackbar-warning {
+    background-color: #F5A061;
+  }
+}
+
+.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) {
+  --mat-text-button-state-layer-color: transparent;
+}
+
+.mat-mdc-simple-snack-bar {
+  align-items: center;
+}
+
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    //opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    //opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    //opacity: 1;
+  }
+
+  to {
+    transform: translateX(100%);
+    //opacity: 0;
+  }
+}
+
+.cdk-overlay-pane.snackbar-animated {
+  animation: slideInRight 300ms ease-out forwards;
+}
+
+.cdk-overlay-pane.snackbar-closing {
+  animation: slideOutRight 300ms ease-in forwards !important;
+}
+
+.mdc-snackbar--open .mdc-snackbar__label, .mdc-snackbar--open .mdc-snackbar__actions {
+  margin-right: 22px !important;
+}
+
+//VAG adjustments
+.mat-mdc-snack-bar-container {
+
+  .mdc-snackbar__surface {
+    min-width: 320px;
+    border-radius: 6px;
+  }
+
+  span.snak-bar-content {
+    line-height: 20px;
+  }
+
+  button {
+    position: absolute;
+    right: 7px;
+    top: 50%;
+    height: 30px !important;
+    width: 30px !important;
+    padding: 0 !important;
+    min-width: 0 !important;
+    line-height: 25px;
+    border-radius: 50% !important;
+    transform: translate(0, -50%);
+
+    .mat-icon {
+      font-size: 20px;
+      width: 30px;
+      height: 30px;
+      line-height: 32px;
+
+      svg {
+        width: 20px;
+        height: 30px;
+      }
+    }
+  }
+
+  &.success {
+    --mdc-snackbar-container-color: #65b765;
+  }
+
+  &.danger {
+    --mdc-snackbar-container-color: #dd6c6c;
+  }
+
+  &.info {
+    --mdc-snackbar-container-color: #4691db;
+  }
+
+  &.warning {
+    --mdc-snackbar-container-color: #f7c362;
+  }
+
+  &.default {
+    --mdc-snackbar-container-color: #fff;
+    --mdc-snackbar-supporting-text-color: #000;
+
+    button {
+      right: 5px;
+      top: 20px;
+
+      .mat-icon {
+        margin-right: 0;
+      }
+    }
+  }
+}

@@ -1,15 +1,13 @@
-<div class="list-wrapper" *ngIf="!loading; else loader">
-  <mat-card *ngFor="let book of books" class="book-card" (click)="openDetail(book)">
-    <mat-card-title>{{ book.name }}</mat-card-title>
-    <mat-card-content>
-      <p><strong>Author:</strong> {{ book.authors.join(', ') }}</p>
-      <p><strong>Released:</strong> {{ book.released | date }}</p>
-    </mat-card-content>
-  </mat-card>
-</div>
+<div class="list-container">
 
-<ng-template #loader>
-  <div class="center">
-    <mat-spinner diameter="60"></mat-spinner>
+  <div class="list-wrapper">
+    <mat-card *ngFor="let book of books" class="book-card" (click)="openDetail(book)">
+      <mat-card-title>{{ book.name }}</mat-card-title>
+      <mat-card-content>
+        <p><strong>Author:</strong> {{ book.authors.join(', ') }}</p>
+        <p><strong>Released:</strong> {{ book.released | date }}</p>
+      </mat-card-content>
+    </mat-card>
   </div>
-</ng-template>
+
+</div>

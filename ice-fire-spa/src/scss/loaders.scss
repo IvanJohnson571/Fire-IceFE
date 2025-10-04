@@ -1,0 +1,276 @@
+@import "../colors.scss";
+
+.progress-loader {
+  .center {
+    top: 40% !important;
+    left: 45% !important;
+  }
+
+  .backdrop, .wrapper {
+    position: fixed !important;
+
+    .loader svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: 0px;
+      text-align: center;
+      -webkit-transform: translateX(-50%) translateY(-50%);
+      -ms-transform: translateX(-50%) translateY(-50%);
+      transform: translateX(-50%) translateY(-50%);
+    }
+
+    .loader .spinner {
+      animation: spin 1.8s linear;
+      -webkit-animation: spin 1.8s linear;
+      animation-iteration-count: infinite;
+      -webkit-animation-iteration-count: infinite;
+    }
+
+    .loader .spinner-reverse {
+      animation: spin 1.5s linear infinite reverse;
+      -webkit-animation: spin 1.5s linear infinite reverse;
+    }
+  }
+}
+
+/* Active Animation */
+@-webkit-keyframes spin {
+  from {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+  }
+}
+
+// 'Ghost' loader
+@keyframes fade-slide-in {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@mixin slide-in-animation {
+  -moz-animation: fade-slide-in 334ms cubic-bezier(0,0,.2,1) forwards;
+  -o-animation: fade-slide-in 334ms cubic-bezier(0,0,.2,1) forwards;
+  -webkit-animation: fade-slide-in 334ms cubic-bezier(0,0,.2,1) forwards;
+  animation: fade-slide-in 334ms cubic-bezier(0,0,.2,1) forwards;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #ECECEC;
+  }
+
+  100% {
+    background-color: #E1E9EE;
+  }
+}
+
+@mixin pulse-animation {
+  -moz-animation: pulse .65s infinite alternate;
+  -o-animation: pulse .65s infinite alternate;
+  -webkit-animation: pulse .65s infinite alternate;
+  animation: pulse .65s infinite alternate;
+}
+
+.loader {
+  $page-font-size: 12px;
+  $page-font-family: "Nunito Sans";
+  $info-color: #4691db;
+  $border-color: #e0e0e0;
+  $mat-button-toggle-height: 30px;
+  $border-radius-button: 0.25rem !default;
+  $border-radius: 0.4rem !default;
+  @include slide-in-animation;
+  pointer-events: none;
+
+  &.mat-mdc-card {
+    .mat-mdc-card-title {
+      > *:first-child:not(span):not(button):empty {
+        min-height: 22px;
+        color: transparent !important;
+        border-radius: $border-radius-button;
+        @include pulse-animation;
+        width: 70% !important;
+      }
+
+      .mat-mdc-button {
+        margin-right: 0 !important;
+        cursor: default;
+        pointer-events: none;
+
+        .mat-icon {
+          color: transparent !important;
+        }
+      }
+    }
+
+    .mat-mdc-card-content {
+      .loader-lines {
+        h2, h3, h4, p {
+          color: transparent !important;
+          border-radius: $border-radius-button;
+          @include pulse-animation;
+        }
+
+        h2 {
+          width: 50%;
+        }
+
+        h3 {
+          width: 85%;
+          min-height: 30px;
+          min-width: 150px;
+        }
+
+        p {
+          width: 70%;
+          min-height: 19px;
+          min-width: 300px;
+        }
+
+        &.mat-mdc-table {
+          padding-left: 6px !important;
+          padding-right: 6px !important;
+
+          tr {
+            height: 23px;
+            @include pulse-animation;
+
+            &:first-child {
+              animation: none;
+              background-color: #fff;
+
+              td {
+                &:not(:last-child) {
+                  @include pulse-animation;
+                }
+
+                &:nth-last-child(2) {
+                  border-bottom-right-radius: $border-radius-button;
+                  border-top-right-radius: $border-radius-button;
+                }
+              }
+            }
+
+            &:not(:last-child) {
+              td {
+                border-bottom-width: 2px !important;
+              }
+            }
+
+            td {
+              border-color: #fff;
+              color: transparent !important;
+
+              * {
+                background-color: transparent !important;
+                color: transparent !important;
+              }
+
+              &:first-child {
+                border-bottom-left-radius: $border-radius-button;
+                border-top-left-radius: $border-radius-button;
+              }
+
+              &:last-child {
+                border-bottom-right-radius: $border-radius-button;
+                border-top-right-radius: $border-radius-button;
+              }
+            }
+          }
+        }
+      }
+
+      .loader-expand-table {
+        tbody {
+          tr.mat-mdc-row:not(.detail-row):not(.expanded-row):nth-child(4n-7) {
+            color: transparent !important;
+            border-radius: $border-radius-button;
+            @include pulse-animation;
+            min-height: 22px;
+            max-height: 30px;
+
+            > td {
+              border-bottom-color: transparent;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .loader-hidden {
+    color: transparent !important;
+    border-color: transparent !important;
+
+    * {
+      opacity: 0;
+    }
+  }
+
+  .loader-line {
+    color: transparent !important;
+    border-radius: $border-radius-button;
+    @include pulse-animation;
+    min-height: 22px;
+
+    &:not(.loader-h100) {
+      max-height: 30px;
+    }
+  }
+
+  tr.loader-line > td {
+    border-bottom-color: transparent;
+  }
+
+  .loader-line-group {
+    > * {
+      color: transparent !important;
+      border-radius: $border-radius-button;
+      @include pulse-animation;
+      width: 75%;
+      height: 22px;
+
+      &:first-child {
+        width: 50%;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 5px !important;
+      }
+    }
+  }
+
+  .loader-circle {
+    border-radius: 50%;
+    background-size: 50px 50px;
+    color: transparent !important;
+    @include pulse-animation;
+  }
+}

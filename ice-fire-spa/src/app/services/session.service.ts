@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { Router } from '@angular/router';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,11 @@ export class SessionService {
 
   public currentUser: any = null;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private notifications: NotificationService
+  ) { }
 
   async login(username: string, password: string) {
 
@@ -27,13 +32,16 @@ export class SessionService {
       if (session?.isAuthenticated) {
         this.currentUser = session.user;
         this.router.navigateByUrl('/');
+        this.notifications.openSnackBarSuccess('Login successful');
+
       } else {
         this.router.navigateByUrl('/login');
+
       }
 
     } catch (err) {
-      console.error('Login failed', err);
-
+      //console.error('Login failed', err);
+      this.notifications.openSnackBarFailure('Login failed');
     }
 
   }
@@ -75,6 +83,17 @@ export class SessionService {
 
     }
 
+  }
+
+  async register(username: string, password: string): Promise<void> {
+    try {
+      await firstValueFrom(
+        this.http.post(environment.baseUrl + 'api/auth/register', { username, password })
+      );
+      alert('Registration successful! You can now log in.');
+    } catch (err) {
+      throw err;
+    }
   }
 
 }

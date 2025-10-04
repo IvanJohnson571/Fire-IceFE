@@ -21,3 +21,31 @@
   align-items: center;
   height: 60vh;
 }
+
+.list-container {
+  min-height: 100vh;
+  background: url('https://images.unsplash.com/photo-1516912481808-3406841bd33c') no-repeat center center fixed;
+  background-size: cover;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  padding: 24px;
+  /*color: #fff;
+  background: linear-gradient(120deg, #1e3c72, #2a5298, #f857a6, #ff5858);
+  background-size: 400% 400%;
+  animation: gradientFlow 12s ease infinite;
+
+  @keyframes gradientFlow {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }*/
+}

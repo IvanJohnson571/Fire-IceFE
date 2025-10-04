@@ -6,45 +6,48 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LoaderService {
 
-  private loaderIgnoredUrlPartList: any[] = [];
+  private loaderIgnoredUrlPartList: string[] = [];
   public isLoading = new BehaviorSubject(false);
+
+  private startTime: number | null = null;
+  private minDisplayDuration = 1000; // 1 секунда
+
   stopLoadingPending: any;
 
   constructor() { }
 
-  isLoadingIgnoredUrl(url: any) {
-
-    if (this.loaderIgnoredUrlPartList.some(part => url.includes(part))) {
-      return true;
-
-    }
-
-    return false;
-
+  isLoadingIgnoredUrl(url: string) {
+    return this.loaderIgnoredUrlPartList.some(part => url.includes(part));
   }
 
   startLoading() {
-    this.isLoading.next(true);
-    console.log('loading');
+
+    if (!this.startTime) {
+      this.startTime = Date.now();
+      this.isLoading.next(true);
+
+    }
   }
 
   stopLoading(requests: any[]) {
+    if (requests.length === 0 && this.startTime) {
+      const elapsed = Date.now() - this.startTime;
+      const remaining = Math.max(this.minDisplayDuration - elapsed, 0);
 
-    if (requests.length === 0) {
-      this.isLoading.next(false);
+      setTimeout(() => {
+        this.isLoading.next(false);
+        this.startTime = null;
 
+      }, remaining);
     }
-
   }
 
   setLoaderIgnoredUrlPart(urlPartList: string[]) {
     this.loaderIgnoredUrlPartList.push(...urlPartList);
-
   }
 
   setStopLoadingPending() {
+    clearTimeout(this.stopLoadingPending);
     this.stopLoadingPending = setTimeout(() => this.isLoading.next(false), 100);
-
   }
-
 }
