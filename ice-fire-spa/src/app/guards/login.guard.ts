@@ -1,22 +1,20 @@
 import { Injectable } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { SessionService } from '../services/session.service';
-import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard {
+export class LoginGuard {
   constructor(private sessionService: SessionService, private router: Router) { }
 
   async canActivate(): Promise<boolean> {
     const session = await this.sessionService.checkSession();
 
     if (session?.isAuthenticated) {
-      return true;
-    } else {
-      await this.router.navigateByUrl('/login');
+      await this.router.navigateByUrl('/');
       return false;
     }
+    return true;
   }
 }

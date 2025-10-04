@@ -19,10 +19,6 @@ export class AppComponent implements OnInit {
     private sessionService: SessionService
   ) { }
 
-  ngOnInit() {
-
-    //this.sessionService.checkSession();
-
-  };
+  ngOnInit() { };
 
 }

@@ -2,49 +2,79 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment.development';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
 
-  constructor(private http: HttpClient) { }
+  public currentUser: any = null;
 
-  async checkSession(): Promise<boolean> {
+  constructor(private http: HttpClient, private router: Router) { }
+
+  async login(username: string, password: string) {
+
     try {
+      await firstValueFrom(
+        this.http.post(`${environment.baseUrl}api/auth/login`, { username, password }, { withCredentials: true })
+      );
+
       const session: any = await firstValueFrom(
         this.http.get(`${environment.baseUrl}api/auth/session`, { withCredentials: true })
       );
-      return !!session?.isAuthenticated;
+
+      if (session?.isAuthenticated) {
+        this.currentUser = session.user;
+        this.router.navigateByUrl('/');
+      } else {
+        this.router.navigateByUrl('/login');
+      }
+
+    } catch (err) {
+      console.error('Login failed', err);
+
+    }
+
+  }
+
+  async checkSession() {
+
+    try {
+
+      const session: any = await firstValueFrom(
+        this.http.get(`${environment.baseUrl}api/auth/session`, { withCredentials: true })
+      );
+
+      this.currentUser = session.user;
+
+      return session;
+
     } catch {
-      return false;
-    }
-  }
+      this.currentUser = null;
+      return { isAuthenticated: false };
 
-  sendGetRequestPlus(data: { path: string, params?: any }) {
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'responseType': 'json'
-    });
-
-    if (!environment.production) {
-      headers = undefined as any;
     }
 
-    return this.http.get(
-      `${environment.baseUrl}api/${data.path}${this.parseQueryString(data.params)}`,
-      { headers, observe: 'response', withCredentials: true }
-    );
   }
 
-  private parseQueryString(model: any) {
-    if (!model) return '';
-    const qsParams = Object.entries(model)
-      .filter(([_, val]) => val != null && val != undefined)
-      .map(([key, val]) => {
-        if (val instanceof Date) val = val.toISOString();
-        return `${key}=${val}`;
-      });
-    return qsParams.length ? '?' + qsParams.join('&') : '';
+  async logout(): Promise<void> {
+
+    try {
+      localStorage.removeItem('token');
+
+      await firstValueFrom(
+        this.http.post(environment.baseUrl + 'api/auth/logout', {}, { withCredentials: true })
+      );
+
+    } catch (err) {
+      console.warn('Logout error:', err);
+
+    } finally {
+      this.router.navigateByUrl('/login');
+
+    }
+
   }
+
 }

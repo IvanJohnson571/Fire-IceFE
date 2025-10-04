@@ -25,7 +25,7 @@ export class LoaderService {
 
   startLoading() {
     this.isLoading.next(true);
-
+    console.log('loading');
   }
 
   stopLoading(requests: any[]) {
