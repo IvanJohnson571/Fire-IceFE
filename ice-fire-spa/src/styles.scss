@@ -1,7 +1,6 @@
 
 @use '@angular/material' as mat;
 @use "scss/mat-snackbar.scss";
-//@use "scss/loaders.scss";
 
 html {
   @include mat.theme(( color: ( primary: mat.$cyan-palette, tertiary: mat.$orange-palette, ), typography: Roboto, density: 0, ));
@@ -9,7 +8,6 @@ html {
 
 html body {
   @import "scss/loaders.scss";
-  //@import "scss/mat-form-field.scss";
 }
 
 body {

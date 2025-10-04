@@ -8,10 +8,8 @@ export class LoaderService {
 
   private loaderIgnoredUrlPartList: string[] = [];
   public isLoading = new BehaviorSubject(false);
-
   private startTime: number | null = null;
-  private minDisplayDuration = 1000; // 1 секунда
-
+  private minDisplayDuration = 1000;
   stopLoadingPending: any;
 
   constructor() { }
@@ -30,6 +28,7 @@ export class LoaderService {
   }
 
   stopLoading(requests: any[]) {
+
     if (requests.length === 0 && this.startTime) {
       const elapsed = Date.now() - this.startTime;
       const remaining = Math.max(this.minDisplayDuration - elapsed, 0);
@@ -39,7 +38,9 @@ export class LoaderService {
         this.startTime = null;
 
       }, remaining);
+
     }
+
   }
 
   setLoaderIgnoredUrlPart(urlPartList: string[]) {
@@ -50,4 +51,5 @@ export class LoaderService {
     clearTimeout(this.stopLoadingPending);
     this.stopLoadingPending = setTimeout(() => this.isLoading.next(false), 100);
   }
+
 }

@@ -21,10 +21,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     public loaderService: LoaderService
   ) { }
 
-  ngOnInit() {
-    //test
-    //this.loaderService.isLoading.next(true);
-  };
+  ngOnInit() { };
 
   ngAfterViewInit(): void {
     this.commonService.adjustSnackBarStyle();

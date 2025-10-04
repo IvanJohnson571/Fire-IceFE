@@ -40,7 +40,6 @@ export class SessionService {
       }
 
     } catch (err) {
-      //console.error('Login failed', err);
       this.notifications.openSnackBarFailure('Login failed');
     }
 
