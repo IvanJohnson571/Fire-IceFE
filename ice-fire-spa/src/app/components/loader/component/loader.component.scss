@@ -1,0 +1,66 @@
+.backdrop {
+  background-color: rgba(242, 245, 247, 0.3);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2000;
+}
+
+.wrapper {
+  position: absolute;
+  z-index: 2001;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loading-spinner {
+  width: 140px;
+  height: 140px;
+
+  svg {
+    position: absolute;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  .spinner {
+    animation: spin 1.8s linear;
+    -webkit-animation: spin 1.8s linear;
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+  }
+
+  .spinner-reverse {
+    animation: spin 1.5s linear infinite reverse;
+    -webkit-animation: spin 1.5s linear infinite reverse;
+  }
+}
+
+/* Active Animation */
+@-webkit-keyframes spin {
+  from {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+  }
+}

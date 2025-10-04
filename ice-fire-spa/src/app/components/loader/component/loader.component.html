@@ -1,0 +1,29 @@
+<ng-template cdkPortal #LoaderOverlayPortal="cdkPortal">
+  <div class="backdrop" [style.backgroundColor]="loaderBackdropColor"></div>
+  <div class="wrapper">
+    <div class="loading-spinner">
+      <svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" class="spinner">
+        <defs>
+          <linearGradient id="str" gradientUnits="objectBoundingBox" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(60, 63, 78, 0.85)" />
+            <stop offset="100%" stop-color="rgba(0, 0, 0, 0)" />
+          </linearGradient>
+        </defs>
+        <path fill="none" stroke-width="3" d="M 70,15 A 45,45 0 0,1 70,125" stroke="url(#str)">
+          <animate attributeName="opacity" dur="3s" values="0.5;1;0.5" from="0.5" repeatCount="indefinite" />
+        </path>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" class="spinner-reverse">
+        <defs>
+          <linearGradient id="str1" gradientUnits="objectBoundingBox" x1="1" y1="1" x2="1" y2="0">
+            <stop offset="0%" stop-color="rgba(60, 63, 78, 0.85)" />
+            <stop offset="100%" stop-color="rgba(0, 0, 0, 0)" />
+          </linearGradient>
+        </defs>
+        <path fill="none" stroke-width="3" d="M 70,20 A 45,45 0 0,1 70,120" stroke="url(#str1)">
+          <animate attributeName="opacity" dur="3s" values="0.5;1;0.5" from="0.5" repeatCount="indefinite" />
+        </path>
+      </svg>
+    </div>
+  </div>
+</ng-template>

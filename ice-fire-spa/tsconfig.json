@@ -3,7 +3,9 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
-    "strict": true,
+    "baseUrl": "./",
+    "forceConsistentCasingInFileNames": true,
+    "strict": false,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -13,20 +15,38 @@
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "moduleResolution": "bundler",
+    "module": "es2020",
+    "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022",
     "useDefineForClassFields": false,
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "paths": {
+      "app/*": [
+        "./src/app/*"
+      ],
+      "my_components/*": [
+        "./src/app/components/*"
+      ],
+      "my_services/*": [
+        "./src/app/services/*"
+      ],
+      "environment/*": [
+        "./src/environments/*"
+      ],
+      "my_material_shered": [
+        "./src/app/modules/shared/shared.module.ts"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "strictNullChecks": false
   }
 }
