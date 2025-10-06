@@ -7,6 +7,8 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { SharedModule } from './modules/shared/shared.module';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { LoaderInterceptor } from './components/loader/loader.interceptor';
+import { favoritesReducer } from '../store/favorites/favorites.reducer';
+import { FavoritesEffects } from '../store/favorites/favorites.effects';
 
 const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
@@ -16,8 +18,8 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     httpInterceptorProviders,
-    provideStore(),
-    provideEffects(),
+    provideStore({ favorites: favoritesReducer }),
+    provideEffects([FavoritesEffects]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     importProvidersFrom(SharedModule),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),

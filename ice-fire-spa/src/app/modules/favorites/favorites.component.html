@@ -1,3 +1,26 @@
-<div style="padding: 24px; display: flex; align-items: center; justify-content: center;">
-  <h1>In progress</h1>
+<div class="list-container">
+  <ng-container *ngIf="(favorites$ | async) as favorites">
+    <div *ngIf="favorites.length > 0; else noFavorites" class="list-wrapper">
+      <mat-card *ngFor="let book of favorites" class="book-card">
+        <mat-icon class="favorite-icon active"
+                  (click)="remove(book)"
+                  matTooltip="Remove from favorites"
+                  matTooltipPosition="above">
+          star
+        </mat-icon>
+
+        <mat-card-title>{{ book.name }}</mat-card-title>
+        <mat-card-content>
+          <p><strong>Author:</strong> {{ book.authors.join(', ') }}</p>
+          <p><strong>Released:</strong> {{ book.released | date }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <ng-template #noFavorites>
+      <div class="no-favorites">
+        <p>No favorites selected</p>
+      </div>
+    </ng-template>
+  </ng-container>
 </div>

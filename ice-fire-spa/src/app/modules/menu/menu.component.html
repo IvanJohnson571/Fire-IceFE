@@ -2,8 +2,18 @@
   <div>
     <span>IceFire Hub</span>
     <span class="spacer"></span>
-    <button mat-button (click)="navigate('/')">Home</button>
-    <button mat-button (click)="navigate('/favorites')">Favorites</button>
+
+    <button mat-button
+            (click)="navigate('/')"
+            [ngClass]="{ 'active-link': isActive('/') }">
+      Home
+    </button>
+
+    <button mat-button
+            (click)="navigate('/favorites')"
+            [ngClass]="{ 'active-link': isActive('/favorites') }">
+      Favorites
+    </button>
   </div>
 
   <div>

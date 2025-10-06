@@ -1,8 +1,15 @@
 mat-toolbar {
   justify-content: space-between;
+  background-color: #dfa285;
 }
 
 .spacer {
   padding-left: 5px;
   padding-right: 5px;
+}
+
+.active-link {
+  font-weight: bold;
+  border-bottom: 2px solid #fff;
+  border-radius: 0;
 }
