@@ -8,8 +8,11 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
+    "test:coverage": "ng test --code-coverage",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "mock:server": "node cypress/mock-server.js",
+    "e2e": "concurrently \"npm run mock:server\" \"npx cypress open\""
   },
   "dependencies": {
     "@angular/animations": "^20.1.2",
@@ -36,6 +39,8 @@
     "@angular/cli": "^20.1.1",
     "@angular/compiler-cli": "^20.1.2",
     "@types/jasmine": "^5.1.9",
+    "concurrently": "^9.2.1",
+    "cypress": "^15.3.0",
     "jasmine-core": "^5.12.0",
     "karma": "^6.4.4",
     "karma-chrome-launcher": "^3.2.0",
