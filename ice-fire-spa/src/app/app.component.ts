@@ -16,8 +16,6 @@ import { LoaderService } from './components/loader/loader.service';
 
 export class AppComponent implements OnInit, AfterViewInit {
 
-  title: string = 'ice-fire-spa';
-
   constructor(
     private commonService: CommonService,
     public loaderService: LoaderService
