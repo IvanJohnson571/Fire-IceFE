@@ -13,6 +13,7 @@ function loadFromLocalStorage() {
 export const initialState: any[] = loadFromLocalStorage();
 
 export const favoritesReducer = createReducer(
+
   initialState,
 
   on(addFavorite, (state, { book }) => {
@@ -23,4 +24,5 @@ export const favoritesReducer = createReducer(
   on(removeFavorite, (state, { book }) =>
     state.filter(b => b.url !== book.url)
   )
+
 );

@@ -16,18 +16,14 @@
     </mat-form-field>
   </div>
 
-  <div class="list-wrapper">
+  <div *ngIf="filteredBooks.length > 0 && dataReady" class="list-wrapper">
     <mat-card *ngFor="let book of filteredBooks"
               class="book-card"
               (click)="openDetail(book)">
       <mat-icon class="favorite-icon"
                 (click)="toggleFavorite(book, $event)"
                 [ngClass]="{ 'active': isFavorite(book) }"
-                [matTooltip]="
-          isFavorite(book)
-            ? 'Remove from favorites'
-            : 'Add to favorites'
-        "
+                [matTooltip]="isFavorite(book) ? 'Remove from favorites' : 'Add to favorites'"
                 matTooltipPosition="above"
                 matTooltipShowDelay="300"
                 matTooltipHideDelay="100">
@@ -41,4 +37,11 @@
       </mat-card-content>
     </mat-card>
   </div>
+
+  <div *ngIf="filteredBooks.length === 0 && dataReady">
+    <div class="no-data">
+      <p>No data found</p>
+    </div>
+  </div>
+
 </div>

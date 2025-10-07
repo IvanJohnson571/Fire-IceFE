@@ -1,22 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 import { ListService } from '../list/services/list.service';
+import { SharedModule } from '../shared/shared.module';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatProgressSpinnerModule],
+  imports: [CommonModule, SharedModule],
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.scss'
 })
 export class DetailComponent implements OnInit {
-  book: any = null;
-  loading = true;
 
-  constructor(private route: ActivatedRoute, private listService: ListService) { }
+  book: any = null;
+
+  constructor(
+    private route: ActivatedRoute,
+    private listService: ListService,
+    private notificationService: NotificationService
+  ) { }
 
   ngOnInit() {
 
@@ -26,11 +31,10 @@ export class DetailComponent implements OnInit {
       this.listService.getBookById(id).subscribe({
         next: (data) => {
           this.book = data;
-          this.loading = false;
         },
         error: (err) => {
-          console.error('Error loading book:', err);
-          this.loading = false;
+          this.notificationService.openSnackBarFailure('Error loading book');
+
         }
       });
     }

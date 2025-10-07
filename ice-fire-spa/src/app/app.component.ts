@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+
 import { LoaderComponent } from './components/loader/component/loader.component';
 import { CommonService } from './services/common.service';
 import { LoaderService } from './components/loader/loader.service';
@@ -14,7 +15,8 @@ import { LoaderService } from './components/loader/loader.service';
 })
 
 export class AppComponent implements OnInit, AfterViewInit {
-  title = 'ice-fire-spa';
+
+  title: string = 'ice-fire-spa';
 
   constructor(
     private commonService: CommonService,

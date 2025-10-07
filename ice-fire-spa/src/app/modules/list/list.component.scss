@@ -1,9 +1,9 @@
 .list-wrapper {
-  display: grid;
+  display: flex;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 300px));
   gap: 16px;
   padding: 24px;
+  flex-wrap: wrap;
 }
 
 .book-card {
@@ -41,7 +41,7 @@
 
 .list-container {
   min-height: 100vh;
-  background: url('https://images.unsplash.com/photo-1516912481808-3406841bd33c') no-repeat center center fixed;
+  background: url('https://m.media-amazon.com/images/S/pv-target-images/6fb04fc002b005a28a0d2b2bc1a1e9ca06c9dd05a7e5d006033776c05a44d706._SX1080_FMjpg_.jpg') no-repeat center center fixed;
   background-size: cover;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -103,4 +103,17 @@
 
 mat-form-field {
   background-color: light-dark(#f1f4f3, #191c1c);
+}
+
+.no-data {
+  color: #fff;
+  font-size: 1.5rem;
+  text-align: center;
+  background-color: #dfa285;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 6px;
+  margin-top: 150px;
 }

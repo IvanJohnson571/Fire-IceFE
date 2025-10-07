@@ -8,7 +8,10 @@ import { selectFavorites } from './favorites.selectors';
 @Injectable()
 export class FavoritesEffects {
 
-  constructor(private actions$: Actions, private store: Store) { }
+  constructor(
+    private actions$: Actions,
+    private store: Store
+  ) { }
 
   persistFavorites$ = createEffect(
     () =>

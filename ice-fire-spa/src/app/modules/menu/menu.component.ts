@@ -11,29 +11,34 @@ import { CommonModule } from '@angular/common';
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss',
 })
+
 export class MenuComponent {
+
   activeRoute = '/';
 
   constructor(
     private router: Router,
     private sessionService: SessionService
   ) {
+
     this.activeRoute = this.router.url;
     this.router.events.subscribe(() => {
       this.activeRoute = this.router.url;
     });
+
   }
 
-  navigate(url: string) {
+  navigate(url: string): void {
     this.router.navigate([url]);
     this.activeRoute = url;
   }
 
-  isActive(url: string) {
+  isActive(url: string): boolean {
     return this.activeRoute === url;
   }
 
-  logout() {
+  logout(): void {
     this.sessionService.logout();
   }
+
 }

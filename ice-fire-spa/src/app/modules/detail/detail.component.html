@@ -1,5 +1,6 @@
-<div *ngIf="!loading && book; else loader"
-     style="padding: 24px;">
+<div *ngIf="book;"
+     style="padding: 24px;"
+     class="detail-wrap">
   <mat-card class="detail-card">
     <mat-card-title>{{ book.name }}</mat-card-title>
     <mat-card-content>
@@ -12,9 +13,3 @@
     </mat-card-content>
   </mat-card>
 </div>
-
-<ng-template #loader>
-  <div class="center">
-    <mat-spinner diameter="60"></mat-spinner>
-  </div>
-</ng-template>

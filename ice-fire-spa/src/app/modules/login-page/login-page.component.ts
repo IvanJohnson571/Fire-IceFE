@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { NotificationService } from '../../services/notification.service';
 import { SharedModule } from '../shared/shared.module';
 import { SessionService } from '../../services/session.service';
-import { Router } from '@angular/router';
-import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-login-page',
@@ -14,10 +15,10 @@ import { NotificationService } from '../../services/notification.service';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent {
-  hidePassword = true;
+
+  hidePassword: boolean = true;
   errorMessage = '';
   loginForm: FormGroup;
-  loading = false;
   isRegisterMode = false;
 
   constructor(
@@ -39,7 +40,6 @@ export class LoginPageComponent {
 
   async onSubmit() {
     if (this.loginForm.invalid) return;
-    this.loading = true;
 
     const { username, password } = this.loginForm.value;
 
@@ -53,7 +53,8 @@ export class LoginPageComponent {
     } catch (err: any) {
       this.errorMessage = err?.error?.message || 'Something went wrong';
     } finally {
-      this.loading = false;
+
     }
   }
+
 }

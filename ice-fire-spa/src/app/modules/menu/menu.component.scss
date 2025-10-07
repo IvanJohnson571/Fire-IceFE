@@ -1,6 +1,10 @@
 mat-toolbar {
   justify-content: space-between;
   background-color: #dfa285;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 .spacer {
@@ -12,4 +16,9 @@ mat-toolbar {
   font-weight: bold;
   border-bottom: 2px solid #fff;
   border-radius: 0;
+}
+
+router-outlet {
+  display: block;
+  margin-top: 56px;
 }
