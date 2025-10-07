@@ -1,0 +1,17 @@
+
+.wrap-center {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+
+  h1 {
+    font-size: 50px;
+  }
+
+  span {
+    letter-spacing: .0067em;
+    font-size: 20px;
+  }
+}

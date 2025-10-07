@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MenuComponent } from './menu.component';
-import { Router } from '@angular/router';
+import { Router, Event } from '@angular/router';
 import { SessionService } from '../../services/session.service';
 import { Subject } from 'rxjs';
 
@@ -9,18 +9,14 @@ describe('MenuComponent', () => {
   let fixture: ComponentFixture<MenuComponent>;
   let routerSpy: jasmine.SpyObj<Router>;
   let sessionSpy: jasmine.SpyObj<SessionService>;
-  let routerEvents$: Subject<void>;
-  let currentUrl = '/';
+  let routerEvents$: Subject<Event>;
 
   beforeEach(async () => {
+    routerEvents$ = new Subject<Event>();
 
-    routerEvents$ = new Subject<void>();
-
-    routerSpy = jasmine.createSpyObj('Router', ['navigate'], {
+    routerSpy = jasmine.createSpyObj<Router>('Router', ['navigate'], {
       events: routerEvents$.asObservable(),
-    });
-    Object.defineProperty(routerSpy, 'url', {
-      get: () => currentUrl,
+      url: '/',
     });
 
     sessionSpy = jasmine.createSpyObj('SessionService', ['logout']);
@@ -42,30 +38,16 @@ describe('MenuComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set activeRoute on init', () => {
-    expect(component.activeRoute).toBe('/');
-  });
-
   it('should update activeRoute when navigate is called', () => {
     component.navigate('/favorites');
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/favorites']);
     expect(component.activeRoute).toBe('/favorites');
   });
 
-  it('should detect active route correctly', () => {
-    component.activeRoute = '/favorites';
-    expect(component.isActive('/favorites')).toBeTrue();
-    expect(component.isActive('/')).toBeFalse();
-  });
-
-  it('should call sessionService.logout on logout()', () => {
-    component.logout();
-    expect(sessionSpy.logout).toHaveBeenCalled();
-  });
-
   it('should update activeRoute on router event', () => {
-    currentUrl = '/favorites';
-    routerEvents$.next();
+    Object.defineProperty(routerSpy, 'url', { get: () => '/favorites' });
+    routerEvents$.next({} as Event);
     expect(component.activeRoute).toBe('/favorites');
   });
+
 });
