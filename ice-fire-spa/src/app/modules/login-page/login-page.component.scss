@@ -7,6 +7,13 @@
   background: linear-gradient(120deg, #133e44, #133e44, #b09481, #133e44);
   background-size: 400% 400%;
   animation: gradientFlow 12s ease infinite;
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    margin-bottom: 75px;
+    font-family: 'Poppins', sans-serif;
+  }
 }
 
 .login-card {
@@ -66,4 +73,11 @@
   100% {
     background-position: 0% 50%;
   }
+}
+
+.logo {
+  height: 32px;
+  width: auto;
+  transform: scale(2.5);
+  margin-bottom: 46px;
 }

@@ -1,4 +1,8 @@
 <div class="login-container">
+
+  <h1>Enter the Realm of Ice & Fire</h1>
+  <img src="assets/logo.png" alt="IceFire Hub logo" class="logo" />
+
   <mat-card class="login-card">
     <h2>{{ isRegisterMode ? 'Create Account' : 'Log in' }}</h2>
 
@@ -23,8 +27,7 @@
 
       <button mat-raised-button
               color="primary"
-              class="login-btn"
-              [disabled]="loginForm.invalid">
+              class="login-btn">
         {{ (isRegisterMode ? 'Register' : 'Login') }}
       </button>
 

@@ -22,3 +22,12 @@ router-outlet {
   display: block;
   margin-top: 56px;
 }
+
+.logo {
+  height: 32px;
+  width: auto;
+  margin-right: 8px;
+  vertical-align: middle;
+  margin-left: 13px;
+  transform: scale(1.5);
+}

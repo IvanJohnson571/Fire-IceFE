@@ -44,17 +44,21 @@ export class LoginPageComponent {
     const { username, password } = this.loginForm.value;
 
     try {
+
       if (this.isRegisterMode) {
         await this.sessionService.register(username, password);
         this.isRegisterMode = false;
+
       } else {
         await this.sessionService.login(username, password);
+
       }
+
     } catch (err: any) {
       this.errorMessage = err?.error?.message || 'Something went wrong';
-    } finally {
 
     }
+
   }
 
 }
