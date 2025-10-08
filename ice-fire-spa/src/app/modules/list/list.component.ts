@@ -79,8 +79,15 @@ export class ListComponent implements OnInit {
     event.stopPropagation();
     const isFav = this.favorites.some((b) => b.url === book.url);
 
-    if (isFav) this.store.dispatch(removeFavorite({ book }));
-    else this.store.dispatch(addFavorite({ book }));
+    if (isFav) {
+      this.store.dispatch(removeFavorite({ book }));
+      this.notificationService.openSnackBarSuccess('Removed from favorites successfully');
+
+    } else {
+      this.store.dispatch(addFavorite({ book }));
+      this.notificationService.openSnackBarSuccess('Added to favorites successfully');
+
+    };
 
   }
 

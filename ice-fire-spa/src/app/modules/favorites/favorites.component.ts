@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { selectFavorites } from '../../../store/favorites/favorites.selectors';
 import { removeFavorite } from '../../../store/favorites/favorites.actions';
 import { SharedModule } from '../shared/shared.module';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-favorites',
@@ -18,11 +19,14 @@ export class FavoritesComponent {
   favorites$ = this.store.select(selectFavorites);
 
   constructor(
-    private store: Store
+    private store: Store,
+    private notificationService: NotificationService
   ) { }
 
   remove(book: any) {
     this.store.dispatch(removeFavorite({ book }));
+    this.notificationService.openSnackBarSuccess('Removed from favorites successfully');
+
   }
 
 }
