@@ -21,9 +21,9 @@ import { Book } from '../../models/common';
 
 export class ListComponent implements OnInit {
 
-  books: any[] = [];
+  books: Book[] = [];
   filteredBooks: Book[] = [];
-  favorites: any[] = [];
+  favorites: Book[] = [];
   searchTerm = '';
   dataReady: boolean = false;
 
@@ -69,12 +69,12 @@ export class ListComponent implements OnInit {
     this.filteredBooks = this.books;
   }
 
-  openDetail(book: any): void {
+  openDetail(book: Book): void {
     const id = book.url.split('/').pop();
     this.router.navigate(['/detail', id]);
   }
 
-  toggleFavorite(book: any, event: MouseEvent): void {
+  toggleFavorite(book: Book, event: MouseEvent): void {
 
     event.stopPropagation();
     const isFav = this.favorites.some((b) => b.url === book.url);
@@ -91,7 +91,7 @@ export class ListComponent implements OnInit {
 
   }
 
-  isFavorite(book: any): boolean {
+  isFavorite(book: Book): boolean {
     return this.favorites.some((b) => b.url === book.url);
   }
 

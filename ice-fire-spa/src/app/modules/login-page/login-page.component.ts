@@ -55,7 +55,7 @@ export class LoginPageComponent {
       }
 
     } catch (err: any) {
-      this.errorMessage = err?.error?.message || 'Something went wrong';
+      this.notificationService.openSnackBarFailure('Something went wrong');
 
     }
 

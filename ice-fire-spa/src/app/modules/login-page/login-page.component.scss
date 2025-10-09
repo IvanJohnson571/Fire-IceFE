@@ -13,14 +13,15 @@
   h1 {
     margin-bottom: 75px;
     font-family: 'Poppins', sans-serif;
+    font-size: 1.8em;
   }
 }
 
 .login-card {
-  width: 360px;
+  max-width: 360px;
   padding: 2rem;
   border-radius: 16px;
-  //background: #fff;
+  margin: 5px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   text-align: center;
 

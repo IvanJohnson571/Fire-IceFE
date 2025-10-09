@@ -1,4 +1,4 @@
-@import "../colors.scss";
+@use "../colors" as *;
 
 .mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
   background-color: transparent !important;

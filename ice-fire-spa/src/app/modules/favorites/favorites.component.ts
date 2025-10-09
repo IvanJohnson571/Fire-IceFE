@@ -7,6 +7,7 @@ import { removeFavorite } from '../../../store/favorites/favorites.actions';
 import { SharedModule } from '../shared/shared.module';
 import { NotificationService } from '../../services/notification.service';
 import { Router } from '@angular/router';
+import { Book } from '../../models/common';
 
 @Component({
   selector: 'app-favorites',
@@ -25,13 +26,13 @@ export class FavoritesComponent {
     private router: Router,
   ) { }
 
-  remove(book: any) {
+  remove(book: Book) {
     this.store.dispatch(removeFavorite({ book }));
     this.notificationService.openSnackBarSuccess('Removed from favorites successfully');
 
   }
 
-  openDetail(book: any): void {
+  openDetail(book: Book): void {
     const id = book.url.split('/').pop();
     this.router.navigate(['/detail', id]);
   }

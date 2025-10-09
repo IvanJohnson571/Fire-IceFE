@@ -4,13 +4,14 @@ import { firstValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { Router } from '@angular/router';
 import { NotificationService } from './notification.service';
+import { Session, User } from '../models/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
 
-  public currentUser: any = null;
+  public currentUser: User = null;
 
   constructor(
     private http: HttpClient,
@@ -19,70 +20,97 @@ export class SessionService {
   ) { }
 
   private getBaseUrl(): string {
+
     const w = window as any;
-    if (w.Cypress) {
-      return environment.cypressBaseUrl;
-    }
+    if (w.Cypress) return environment.cypressBaseUrl;
     return environment.baseUrl;
+
   }
 
   async login(username: string, password: string) {
+
     try {
       await firstValueFrom(
         this.http.post(`${this.getBaseUrl()}api/auth/login`, { username, password }, { withCredentials: true })
       );
 
-      const session: any = await firstValueFrom(
-        this.http.get(`${this.getBaseUrl()}api/auth/session`, { withCredentials: true })
+      const session: Session = await firstValueFrom(
+        this.http.get<Session>(`${this.getBaseUrl()}api/auth/session`, { withCredentials: true })
       );
 
       if (session?.isAuthenticated) {
         this.currentUser = session.user;
+        console.log('session: ', session);
         this.router.navigateByUrl('/');
         this.notifications.openSnackBarSuccess('Login successful');
+
       } else {
         this.router.navigateByUrl('/login');
+
       }
 
     } catch (err) {
       this.notifications.openSnackBarFailure('Login failed');
+
     }
+
   }
 
   async checkSession() {
+
     try {
-      const session: any = await firstValueFrom(
-        this.http.get(`${this.getBaseUrl()}api/auth/session`, { withCredentials: true })
+
+      const session = await firstValueFrom(
+        this.http.get<Session>(`${this.getBaseUrl()}api/auth/session`, { withCredentials: true })
       );
+
       this.currentUser = session.user;
       return session;
+
     } catch {
       this.currentUser = null;
       return { isAuthenticated: false };
+
     }
+
   }
 
   async logout(): Promise<void> {
+
     try {
       localStorage.removeItem('token');
+
       await firstValueFrom(
         this.http.post(`${this.getBaseUrl()}api/auth/logout`, {}, { withCredentials: true })
       );
+      this.notifications.openSnackBarSuccess('Logged out');
+
     } catch (err) {
-      console.warn('Logout error:', err);
+      this.notifications.openSnackBarFailure('Logout error');
+
     } finally {
       this.router.navigateByUrl('/login');
+
     }
+
   }
 
   async register(username: string, password: string): Promise<void> {
+
     try {
+
       await firstValueFrom(
         this.http.post(`${this.getBaseUrl()}api/auth/register`, { username, password })
       );
-      alert('Registration successful! You can now log in.');
+
+      this.notifications.openSnackBarSuccess('Registration successful! You can now log in');
+
     } catch (err) {
+      this.notifications.openSnackBarFailure('Something went wrong');
       throw err;
-    }
-  }
+
+    };
+
+  };
+
 }

@@ -12,3 +12,15 @@ export interface Book {
   povCharacters: string[];
   url: string;
 }
+
+export interface User {
+  exp: number;
+  iat: number;
+  id: number;
+  username: string;
+}
+
+export interface Session {
+  isAuthenticated: boolean;
+  user: User;
+}

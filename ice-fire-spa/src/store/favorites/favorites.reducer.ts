@@ -1,4 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
+import { Book } from '../../app/models/common';
 import { addFavorite, removeFavorite } from './favorites.actions';
 
 function loadFromLocalStorage() {
@@ -10,7 +11,7 @@ function loadFromLocalStorage() {
   }
 }
 
-export const initialState: any[] = loadFromLocalStorage();
+export const initialState: Book[] = loadFromLocalStorage();
 
 export const favoritesReducer = createReducer(
 
