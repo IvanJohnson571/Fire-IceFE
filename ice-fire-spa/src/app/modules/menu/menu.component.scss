@@ -5,6 +5,11 @@ mat-toolbar {
   top: 0;
   width: 100%;
   z-index: 1000;
+
+  .header {
+    font-family: 'Uncial Antiqua', cursive;
+    text-shadow: -1px -1px 0 #D89441, 1px -1px 0 #D89441, -1px 1px 0 #D89441, 1px 1px 0 #D89441;
+  }
 }
 
 .spacer {

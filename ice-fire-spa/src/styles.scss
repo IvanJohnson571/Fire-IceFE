@@ -17,9 +17,18 @@ body {
 
 html, body {
   height: 100%;
+  font-family: 'Uncial Antiqua', cursive;
 
   .mat-mdc-button, .mat-mdc-button .mdc-button__ripple {
     border-radius: 4px;
+  }
+
+  mat-card {
+    //background: #F4E1C4 url(https://www.westeros.org/Graphics/bg_parchment-light.png) !important;
+
+    mat-card-title {
+      font-family: 'Uncial Antiqua', cursive !important;
+    }
   }
 }
 
