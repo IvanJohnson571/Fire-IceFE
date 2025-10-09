@@ -2,9 +2,19 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "types": [ "jasmine" ],
-    "isolatedModules": true
+    "types": [
+      "jasmine",
+      "node"
+    ],
+    "esModuleInterop": true,
+    "isolatedModules": false
   },
-  "files": [ "src/test.ts" ],
-  "include": [ "src/**/*.spec.ts", "src/**/*.d.ts" ]
+  "files": [
+    "src/test.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
+  ]
 }

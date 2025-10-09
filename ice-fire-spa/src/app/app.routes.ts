@@ -1,7 +1,4 @@
 import { Routes } from '@angular/router';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { DetailComponent } from './modules/detail/detail.component';
-import { FavoritesComponent } from './modules/favorites/favorites.component';
 import { ListComponent } from './modules/list/list.component';
 import { LoginPageComponent } from './modules/login-page/login-page.component';
 import { MenuComponent } from './modules/menu/menu.component';
@@ -15,10 +12,22 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', component: ListComponent },
-      { path: 'detail/:id', component: DetailComponent },
-      { path: 'favorites', component: FavoritesComponent },
+      {
+        path: 'detail/:id',
+        loadComponent: () =>
+          import('./modules/detail/detail.component').then(m => m.DetailComponent),
+      },
+      {
+        path: 'favorites',
+        loadComponent: () =>
+          import('./modules/favorites/favorites.component').then(m => m.FavoritesComponent),
+      },
     ]
   },
   { path: 'login', component: LoginPageComponent, canActivate: [LoginGuard] },
-  { path: '**', component: PageNotFoundComponent }
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./components/page-not-found/page-not-found.component').then(m => m.PageNotFoundComponent),
+  }
 ];

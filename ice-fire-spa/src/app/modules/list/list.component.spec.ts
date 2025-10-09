@@ -7,6 +7,7 @@ import { of, throwError } from 'rxjs';
 import { ListService } from './services/list.service';
 import { NotificationService } from '../../services/notification.service';
 import { addFavorite, removeFavorite } from '../../../store/favorites/favorites.actions';
+import { Book } from '../../models/common';
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -53,11 +54,11 @@ describe('ListComponent', () => {
   });
 
   it('should filter books based on search term', () => {
-    const mockBooks = [
+    const mockBooks: Partial<Book>[] = [
       { name: 'Fire & Ice', authors: ['George R. R. Martin'] },
       { name: 'The Hobbit', authors: ['Tolkien'] }
     ];
-    listServiceSpy.getBooks.and.returnValue(of(mockBooks));
+    listServiceSpy.getBooks.and.returnValue(of(mockBooks as Book[]));
     fixture.detectChanges();
 
     component.searchTerm = 'hobbit';
@@ -68,8 +69,8 @@ describe('ListComponent', () => {
   });
 
   it('should clear search and restore full list', () => {
-    const mockBooks = [{ name: 'Book A', authors: ['X'] }] as any;
-    listServiceSpy.getBooks.and.returnValue(of(mockBooks));
+    const mockBooks: Partial<Book>[] = [{ name: 'Book A', authors: ['X'] }];
+    listServiceSpy.getBooks.and.returnValue(of(mockBooks as Book[]));
     fixture.detectChanges();
 
     component.searchTerm = 'book';
@@ -77,42 +78,42 @@ describe('ListComponent', () => {
     component.clearSearch();
 
     expect(component.searchTerm).toBe('');
-    expect(component.filteredBooks).toEqual(mockBooks);
+    expect(component.filteredBooks).toEqual(mockBooks as Book[]);
   });
 
   it('should navigate to book detail page', () => {
     listServiceSpy.getBooks.and.returnValue(of([]));
     fixture.detectChanges();
 
-    const book = { url: 'https://api/books/42' };
-    component.openDetail(book);
+    const book: Partial<Book> = { url: 'https://api/books/42' };
+    component.openDetail(book as Book);
 
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/detail', '42']);
   });
 
   it('should dispatch addFavorite when not favorite', () => {
     const dispatchSpy = spyOn(store, 'dispatch');
-    const mockBook = { url: '123' };
+    const mockBook: Partial<Book> = { url: '123' };
     component.favorites = [];
     const fakeEvent = new MouseEvent('click');
-    component.toggleFavorite(mockBook, fakeEvent);
+    component.toggleFavorite(mockBook as Book, fakeEvent);
 
-    expect(dispatchSpy).toHaveBeenCalledWith(addFavorite({ book: mockBook }));
+    expect(dispatchSpy).toHaveBeenCalledWith(addFavorite({ book: mockBook as Book }));
   });
 
   it('should dispatch removeFavorite when already favorite', () => {
     const dispatchSpy = spyOn(store, 'dispatch');
-    const mockBook = { url: '123' };
-    component.favorites = [{ url: '123' }];
+    const mockBook: Partial<Book> = { url: '123' };
+    component.favorites = [{ url: '123' } as Book];
     const fakeEvent = new MouseEvent('click');
-    component.toggleFavorite(mockBook, fakeEvent);
+    component.toggleFavorite(mockBook as Book, fakeEvent);
 
-    expect(dispatchSpy).toHaveBeenCalledWith(removeFavorite({ book: mockBook }));
+    expect(dispatchSpy).toHaveBeenCalledWith(removeFavorite({ book: mockBook as Book }));
   });
 
   it('should correctly detect favorite status', () => {
-    const mockBook = { url: '123' };
-    component.favorites = [{ url: '123' }];
-    expect(component.isFavorite(mockBook)).toBeTrue();
+    const mockBook: Partial<Book> = { url: '123' };
+    component.favorites = [{ url: '123' } as Book];
+    expect(component.isFavorite(mockBook as Book)).toBeTrue();
   });
 });

@@ -40,7 +40,6 @@ export class SessionService {
 
       if (session?.isAuthenticated) {
         this.currentUser = session.user;
-        console.log('session: ', session);
         this.router.navigateByUrl('/');
         this.notifications.openSnackBarSuccess('Login successful');
 

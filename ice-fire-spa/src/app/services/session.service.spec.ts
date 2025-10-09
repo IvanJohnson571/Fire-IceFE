@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { NotificationService } from './notification.service';
+import { Session, User } from '../models/common';
 
 describe('SessionService', () => {
   let service: SessionService;
@@ -33,18 +34,25 @@ describe('SessionService', () => {
 
   it('should set currentUser and navigate to root on successful login', async () => {
     httpSpy.post.and.returnValue(of({}));
-    httpSpy.get.and.returnValue(of({ isAuthenticated: true, user: { name: 'Ivan' } }));
+    httpSpy.get.and.returnValue(
+      of({
+        isAuthenticated: true,
+        user: { id: 1, username: 'Ivan', iat: 0, exp: 0 }
+      } as Session)
+    );
 
     await service.login('user', 'pass');
 
-    expect(service.currentUser).toEqual({ name: 'Ivan' });
+    expect(service.currentUser).toEqual(
+      jasmine.objectContaining({ username: 'Ivan' })
+    );
     expect(routerSpy.navigateByUrl).toHaveBeenCalledWith('/');
     expect(notificationSpy.openSnackBarSuccess).toHaveBeenCalledWith('Login successful');
   });
 
   it('should navigate to /login if session is not authenticated', async () => {
     httpSpy.post.and.returnValue(of({}));
-    httpSpy.get.and.returnValue(of({ isAuthenticated: false }));
+    httpSpy.get.and.returnValue(of({ isAuthenticated: false } as Session));
 
     await service.login('user', 'pass');
 
@@ -60,13 +68,18 @@ describe('SessionService', () => {
   });
 
   it('should return session and set currentUser on success', async () => {
-    const mockSession = { isAuthenticated: true, user: { id: 1 } };
+    const mockSession: Session = {
+      isAuthenticated: true,
+      user: { id: 1, username: 'Ivan', iat: 0, exp: 0 }
+    };
     httpSpy.get.and.returnValue(of(mockSession));
 
     const result = await service.checkSession();
 
     expect(result).toEqual(mockSession);
-    expect(service.currentUser).toEqual(mockSession.user);
+    expect(service.currentUser).toEqual(
+      jasmine.objectContaining({ username: 'Ivan' })
+    );
   });
 
   it('should return {isAuthenticated: false} and clear currentUser on error', async () => {
@@ -86,5 +99,23 @@ describe('SessionService', () => {
 
     expect(localStorage.removeItem).toHaveBeenCalledWith('token');
     expect(routerSpy.navigateByUrl).toHaveBeenCalledWith('/login');
+  });
+
+  it('should show success notification on successful registration', async () => {
+    httpSpy.post.and.returnValue(of({}));
+
+    await service.register('user', 'pass');
+
+    expect(notificationSpy.openSnackBarSuccess).toHaveBeenCalledWith(
+      'Registration successful! You can now log in'
+    );
+  });
+
+  it('should show failure notification on registration error', async () => {
+    httpSpy.post.and.returnValue(throwError(() => new Error('error')));
+
+    await expectAsync(service.register('user', 'pass')).toBeRejected();
+
+    expect(notificationSpy.openSnackBarFailure).toHaveBeenCalledWith('Something went wrong');
   });
 });

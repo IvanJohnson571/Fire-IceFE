@@ -21,28 +21,33 @@
     "target": "ES2022",
     "useDefineForClassFields": false,
     "isolatedModules": true,
+    "types": [
+      "jasmine",
+      "node",
+      "cypress"
+    ],
     "lib": [
       "ES2022",
       "dom"
     ],
     "paths": {
-      "app/*": [
-        "./src/app/*"
-      ],
-      "my_components/*": [
-        "./src/app/components/*"
-      ],
-      "my_services/*": [
-        "./src/app/services/*"
-      ],
-      "environment/*": [
-        "./src/environments/*"
-      ],
-      "my_material_shered": [
-        "./src/app/modules/shared/shared.module.ts"
-      ]
+      "app/*": [ "./src/app/*" ],
+      "my_components/*": [ "./src/app/components/*" ],
+      "my_services/*": [ "./src/app/services/*" ],
+      "environment/*": [ "./src/environments/*" ],
+      "my_material_shered": [ "./src/app/modules/shared/shared.module.ts" ]
     }
   },
+  "include": [
+    "src/**/*.ts",
+    "src/override-jasmine.d.ts",
+    "cypress/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules/cypress",
+    "cypress"
+  ],
+
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

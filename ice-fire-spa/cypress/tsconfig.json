@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [ "ES2022", "dom" ],
+    "types": [ "cypress", "mocha" ],
+    "esModuleInterop": true,
+    "isolatedModules": false
+  },
+  "include": [ "e2e/**/*.cy.ts", "support/**/*.ts" ]
+}

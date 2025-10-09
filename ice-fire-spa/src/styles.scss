@@ -17,6 +17,10 @@ body {
 
 html, body {
   height: 100%;
+
+  .mat-mdc-button, .mat-mdc-button .mdc-button__ripple {
+    border-radius: 4px;
+  }
 }
 
 body {

@@ -24,6 +24,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit() { };
 
   ngAfterViewInit(): void {
+    //NOTE: Configure the styles and animations for the snack bar.
     this.commonService.adjustSnackBarStyle();
   }
 

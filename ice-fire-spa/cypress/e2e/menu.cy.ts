@@ -15,7 +15,7 @@ describe('Menu Component', () => {
   });
 
   it('should display IceFire Hub title', () => {
-    cy.get('mat-toolbar').should('contain.text', 'IceFire Hub');
+    cy.get('mat-toolbar').should('contain.text', 'Ice & Fire');
   });
 
   it('should navigate to Favorites and highlight active link', () => {
